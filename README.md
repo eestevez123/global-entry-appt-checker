@@ -1,6 +1,6 @@
 # global-entry-appt-checker
 
-![Global Entry Checker UI](assets/initPage.png "Live dashboard showing appointment availability")
+![Global Entry Checker UI](static/preview.png "Live dashboard showing appointment availability")
 
 This is python application that helps track and notify the user if an early appointment has been found at their selected locations.
 

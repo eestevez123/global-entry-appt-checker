@@ -2,9 +2,30 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <!-- SEO & Social Sharing -->
     <title>Global Entry Appointment Tracker</title>
+    <meta name="description" content="A simple tool to monitor Global Entry appointment availability and alert you when earlier slots open.">
+    <meta name="author" content="Eddie Estevez">
+    <meta property="og:title" content="Global Entry Appointment Tracker">
+    <meta property="og:description" content="Monitor availability and get notified when earlier Global Entry appointments open up.">
+    <meta property="og:image" content="{{ url_for('static', filename='preview.png') }}">
+    <meta property="og:url" content="https://your-app.onrender.com">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Favicon + PWA Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+  
+    <!-- Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
+  
   <body>
     <div class="container">
       <h1>Global Entry Appointment Tracker</h1>
