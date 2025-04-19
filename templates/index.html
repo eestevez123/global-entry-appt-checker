@@ -8,6 +8,14 @@
   <body>
     <div class="container">
       <h1>Global Entry Appointment Tracker</h1>
+      {% if not alerts_enabled %}
+        <div style="background: #e6ffe6; padding: 1rem; border-left: 5px solid #4CAF50; margin-bottom: 1rem; border-radius: 6px;">
+          <strong>🎉 Mission accomplished!</strong><br>
+          I've already booked my Global Entry appointment.<br>
+          This tool served its purpose — check out the source code 
+          <a href="https://github.com/eestevez123/global-entry-appt-checker" target="_blank" style="color: #0077cc; font-weight: bold;">on GitHub</a>.
+        </div>
+      {% endif %}
       <p><strong>Alert threshold:</strong> Appointments before <span style="color: red">{{ threshold_date.strftime('%B %d, %Y') }}</span></p>
       <form id="refreshForm" method="POST" action="/refresh">
         <button type="submit" id="refreshBtn">🔁 Refresh Now</button>
@@ -28,10 +36,22 @@
           <th>Location</th>
           <th>Earliest Appointment</th>
         </tr>
-        {% for name, dt in slots.items() %}
+        {% for name, info in slots.items() %}
         <tr>
           <td>{{ name }}</td>
-          <td>{{ dt.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>
+            {% if info.status == "available" %}
+              <span style="color: green;">
+                {{ info.date.strftime('%B %d, %Y at %I:%M %p') }}
+              </span>
+            {% elif info.status == "full" %}
+              <span style="color: #888;">
+                Appointments full through {{ info.date.strftime('%B %d, %Y') }}
+              </span>
+            {% else %}
+              <span style="color: red;">Unknown status</span>
+            {% endif %}
+          </td>
         </tr>
         {% else %}
         <tr>

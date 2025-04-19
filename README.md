@@ -1,4 +1,7 @@
 # global-entry-appt-checker
+
+![Global Entry Checker UI](assets/initPage.png "Live dashboard showing appointment availability")
+
 This is python application that helps track and notify the user if an early appointment has been found at their selected locations.
 
 ### Important Commands Running Locally
@@ -22,6 +25,17 @@ The following should be filled in:
 
 `TO_EMAIL=your_email@gmail.com   # Or any other email address you want alerts sent to`
 
+`ALERTS_ENABLED=false #if you would like email notification about earlier appointments found compared to threshold date`
+
 For help getting your app password if you are using G-mail, I suggest following this video: [How To Set Up Gmail SMTP Server - Full Guide
 ](https://www.youtube.com/watch?v=ZfEK3WP73eY).
+
+#### Testing Email Sending Locally
+Once you set up your .env file, run the following command: `python3 test_send_email.py`
+
+
+### Deployment
+Start command for application: `python3 app.py`
+
+Make sure to include the .env variables as detailed above in this readme
 
