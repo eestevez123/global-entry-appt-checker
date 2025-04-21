@@ -13,7 +13,8 @@ This is an unofficial tool designed to help users monitor Global Entry appointme
 - This project is not affiliated with or endorsed by U.S. Customs and Border Protection (CBP) or the U.S. government.
 - All data is obtained from publicly available endpoints without authentication.
 - Please use this tool responsibly and avoid excessive or abusive traffic to government services.
-- Please contact me via estevez.eduardo111@gmail.com for removal of this project
+
+Please view this document for further information: [Legal Notice & Disclaimers](./docs/legal.md)
 
 ## 🛠️ Getting Started (Local Setup)
 
@@ -85,4 +86,4 @@ To keep it alive:
 
 ---
 
-Made with ❤️ by [Eduardo Estevez](mailto:estevez.eduardo111@gmail.com) • [View source](https://github.com/eestevez123/global-entry-appt-checker)
+Made with ❤️ by [Eddie Estevez](mailto:estevez.eduardo111@gmail.com) • [View source](https://github.com/eestevez123/global-entry-appt-checker)
