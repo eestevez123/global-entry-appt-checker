@@ -28,7 +28,7 @@ LOCATIONS = {
 }
 # This is the date new appointments will be compared to
 # If an earlier date is found, email notification is triggered
-THRESHOLD_DATE = datetime(2025, 4, 28)
+THRESHOLD_DATE = datetime(2025, 4, 24)
 # Integer, in minutes, for example: 20
 CHECK_INTERVAL_MINUTES = 20
 
