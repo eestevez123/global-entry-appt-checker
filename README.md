@@ -1,72 +1,88 @@
-# global-entry-appt-checker
+# Global Entry Appointment Checker
 
 ![Global Entry Checker UI](static/preview.png "Live dashboard showing appointment availability")
 
-This is a python application that helps track and notify the user if an early appointment has been found at their selected locations.
+Monitor Global Entry appointment availability at selected locations and get notified by email when earlier slots appear.
 
-## Running Locally and Preparation for Deployment
+👉 [Live Demo](https://global-entry-appt-checker.onrender.com/)
 
-### Important Commands Running Locally
-`python3 -m venv venv` : installs ability to create and get into a virtual local environment
+## ⚠️ Disclaimer
 
-`source venv/bin/activate` : gets you into the virtual env
+This is an unofficial tool designed to help users monitor Global Entry appointment availability more efficiently.
 
-`deactivate` : gets you out of the virtual env
+- This project is not affiliated with or endorsed by U.S. Customs and Border Protection (CBP) or the U.S. government.
+- All data is obtained from publicly available endpoints without authentication.
+- Please use this tool responsibly and avoid excessive or abusive traffic to government services.
+- Please contact me via estevez.eduardo111@gmail.com for removal of this project
 
-`pip install -r requirements.txt` : install required python libraries for this project
+## 🛠️ Getting Started (Local Setup)
 
-`python3 app.py` : runs the application
+### 1. Set Up Virtual Environment
 
-### Creating a .env file locally
-Make sure you create a .env within this repository's directory in order for this application to work for you
-The following should be filled in:
+```bash
+python3 -m venv venv       # Create virtual environment
+source venv/bin/activate   # Activate it (use venv\Scripts\activate on Windows)
+pip install -r requirements.txt # install required python libraries for this project
+```
 
-`EMAIL_ADDRESS=your_email@gmail.com`
+To deactivate:
+```bash
+deactivate
+```
 
-`EMAIL_PASSWORD=your_gmail_app_password`
+### 2. Creating a .env file locally
+Create a .env file in the root directory and add the following:
 
-`TO_EMAIL=your_email@gmail.com   # Or any other email address you want alerts sent to`
+```dotenv
+EMAIL_ADDRESS=your_email@gmail.com
+EMAIL_PASSWORD=your_gmail_app_password
+TO_EMAIL=recipient_email@gmail.com
+ALERTS_ENABLED=true
+```
 
-`ALERTS_ENABLED=false #if you would like email notification about earlier appointments found compared to threshold date`
+`ALERTS_ENABLED` is used to control whether you would like email notification about earlier appointments found compared to threshold date
 
 For help getting your app password if you are using G-mail, I suggest following this video: [How To Set Up Gmail SMTP Server - Full Guide
 ](https://www.youtube.com/watch?v=ZfEK3WP73eY).
 
 These environment variables will need to be created and set when deploying this code.
 
-### Testing Email Sending Locally
+### 3. Run Locally
+
+#### Testing Email Sending Locally
 Once you set up your .env file, run the following command: `python3 test_send_email.py`
 
 You will know you have the correct values once you receive the test email in your inbox
 
-## Deployment
+Use `python3 app.py` to run the actual application. The default port is 3005, but this can be modified.
 
-I recommend using a free platform such as [Render](https://render.com/) which is what I used for this project.
+## 🚀 Deploying on Render
 
-### Render Deployment Instructions
+This project works well as a [Render](https://render.com/) Web Service (free tier).
 
-Deploy the code out as a Web Service. You can either connect your GitHub account with the repository that holds this code, or upload this code manually.
+### ✅ Recommended Settings
 
-Make sure to set up the .env variables as described earlier while setting up the project within Render.
+| Setting         | Value                          |
+|----------------|----------------------------------|
+| Environment     | Python                         |
+| Build Command   | `pip install -r requirements.txt` |
+| Start Command   | `python app.py`                |
+| Instance Type   | Free                            |
+| Region          | Closest to you                  |
+| Environment Vars| Set as in `.env` above          |
 
-Name: *whatever you'd like, e.g. global-entry-checker*
+You can deploy by linking your GitHub repo or uploading manually.
 
-Environment: Python
+---
 
-Build Command: `pip install -r requirements.txt`
+### 🛡️ Keep It Alive with UptimeRobot
 
-Start command for application: `python app.py`
+On Render’s free tier, your app may go to sleep without traffic.
 
-Instance Type: Free (for personal/light usage)
+To keep it alive:
+- Sign up at [UptimeRobot](https://uptimerobot.com/)
+- Create a monitor that pings: https://your-app-name.onrender.com/health (change this according to what you named your project). This triggers your `/health` endpoint and keeps the scheduler running.
 
-Region: Closest to your location (e.g., Oregon or Ohio)
+---
 
-Make sure to include the .env variables as detailed above in this readme
-
-
-### Using UptimeRobot to keep application alive and working
-
-I recommend using [UptimeRobot](https://uptimerobot.com/) to keep the website alive and preventing it from going to sleep which is a risk when deploying this code using a free tier account.
-
-This application has a `/heath` endpoint that can be tapped into to check the static of the website and also keep it alive.
-
+Made with ❤️ by [Eduardo Estevez](mailto:estevez.eduardo111@gmail.com) • [View source](https://github.com/eestevez123/global-entry-appt-checker)
