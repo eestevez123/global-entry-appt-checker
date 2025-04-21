@@ -26,9 +26,14 @@ LOCATIONS = {
     "Milwaukee (Milwaukee Enrollment Center)": 7740,
     "Rockford (Rockford-Chicago International Airport)": 11001
 }
+
+# You can find the list of timezones here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+TIME_ZONE = "America/Chicago"
+
 # This is the date new appointments will be compared to
 # If an earlier date is found, email notification is triggered
 THRESHOLD_DATE = datetime(2025, 4, 24)
+
 # Integer, in minutes, for example: 20
 CHECK_INTERVAL_MINUTES = 20
 
@@ -36,12 +41,16 @@ CHECK_INTERVAL_MINUTES = 20
 # this number
 MAX_LOCATIONS = 10
 
-# SMS CONFIG
-# Refer to the readme for help finding the right values for these vars
+# EMAIL CONFIG
+# Refer to the readme for help finding the right values
+# Please populate these variables in the .env file
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 TO_EMAIL = os.getenv("TO_EMAIL")
 ALERTS_ENABLED = os.getenv("ALERTS_ENABLED", "true").lower() == "true"
+
+# If you want to run the app on a different port, change this
+LOCAL_PORT = 3005
 
 ###########################################################################
 
@@ -52,7 +61,7 @@ alerted_slots = {}  # { location_name: datetime }
 app = Flask(__name__)
 
 def cst_now():
-    return datetime.now(tz=ZoneInfo("America/Chicago"))
+    return datetime.now(tz=ZoneInfo(TIME_ZONE))
 
 app.jinja_env.globals.update(
     now=cst_now,
@@ -81,7 +90,11 @@ def check_appointments():
     global latest_slots
     print(f"[{datetime.now()}] Checking appointment availability...")
 
-    for name, loc_id in LOCATIONS.items():
+    # Limit the number of locations to MAX_LOCATIONS
+    for i, (name, loc_id) in enumerate(LOCATIONS.items()):
+        if i >= MAX_LOCATIONS:
+            break  # Stop processing if the limit is reached
+        
         try:
             headers = {
                 "User-Agent": random.choice([
@@ -149,4 +162,4 @@ def health():
 
 if __name__ == "__main__":
     check_appointments()  # initial run
-    app.run(host="0.0.0.0", port=3005)
+    app.run(host="0.0.0.0", port=LOCAL_PORT)
