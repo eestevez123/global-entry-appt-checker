@@ -22,10 +22,8 @@ load_dotenv()
 # Location Key Names can be whatever you'd like
 LOCATIONS = {
     "CHICAGO (Chicago O'Hare International Global Entry EC )": 5183,
-    "CHICAGO (Chicago Field Office Enrollment Center)": 11981,
-    "Milwaukee (Milwaukee Enrollment Center)": 7740,
-    "Rockford (Rockford-Chicago International Airport)": 11001
-}
+    "Milwaukee (Milwaukee Enrollment Center)": 7740
+    }
 
 # You can find the list of timezones here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 TIME_ZONE = "America/Chicago"
@@ -33,7 +31,7 @@ TIME_ZONE = "America/Chicago"
 # This is the date new appointments will be compared to
 # If an earlier date is found, email notification is triggered
 # Format: datetime(year, month, day) e.g datetime(2025, 4, 24)
-THRESHOLD_DATE = datetime(2025, 4, 23)
+THRESHOLD_DATE = datetime(2025, 4, 25)
 
 # Integer, in minutes, for example: 20
 CHECK_INTERVAL_MINUTES = 20
