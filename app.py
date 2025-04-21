@@ -47,6 +47,7 @@ ALERTS_ENABLED = os.getenv("ALERTS_ENABLED", "true").lower() == "true"
 
 # Memory storage
 latest_slots = {}  # { location_name: datetime }
+alerted_slots = {}  # { location_name: datetime }
 
 app = Flask(__name__)
 
@@ -102,11 +103,20 @@ def check_appointments():
                     dt = datetime.fromisoformat(first_slot["startTimestamp"])
                     latest_slots[name] = { "date": dt, "status": "available" }
 
-                    if dt < THRESHOLD_DATE:
-                        send_email(
-                            f"🚨 Early Appointment Found at {name}",
-                            f"An earlier appointment is available at {name} on {dt.strftime('%B %d, %Y at %I:%M %p')}.\n\nVisit https://ttp.dhs.gov/"
-                        )
+                    previous_alert = alerted_slots.get(name)
+
+                    # Only send an alert if it's before the threshold and is new
+                    if dt < THRESHOLD_DATE and (previous_alert is None or dt != previous_alert):
+                        if ALERTS_ENABLED:
+                            send_email(
+                                f"🚨 Early Appointment Found at {name}",
+                                f"An earlier appointment is available at {name} on {dt.strftime('%B %d, %Y at %I:%M %p')}.\n\nVisit https://ttp.dhs.gov/"
+                            )
+                            alerted_slots[name] = dt  # Update alert history
+                        else:
+                            print(f"📬 Would alert for {name} on {dt} but alerts are disabled.")
+                    else:
+                        print(f"ℹ️ No new earlier appointment for {name}.")
                 else:
                     last_pub = data.get("lastPublishedDate")
                     if last_pub:
