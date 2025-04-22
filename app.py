@@ -22,7 +22,10 @@ load_dotenv()
 # Location Key Names can be whatever you'd like
 LOCATIONS = {
     "CHICAGO (Chicago O'Hare International Global Entry EC )": 5183,
-    "Milwaukee (Milwaukee Enrollment Center)": 7740
+    "CHICAGO (Chicago Field Office Enrollment Center)": 11981,
+    "Rockford (Rockford-Chicago International Airport)" : 11001,
+    "Milwaukee (Milwaukee Enrollment Center)": 7740,
+    "MILWAUKEE (Mitchell International Airport)" : 16645
     }
 
 # You can find the list of timezones here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -148,7 +151,14 @@ scheduler.start()
 
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html", slots=latest_slots, threshold_date=THRESHOLD_DATE)
+    # Sort the slots by date (ignoring None dates)
+    sorted_slots = dict(
+        sorted(
+            latest_slots.items(),
+            key=lambda item: item[1]["date"] if item[1]["date"] else datetime.max
+        )
+    )
+    return render_template("index.html", slots=sorted_slots, threshold_date=THRESHOLD_DATE)
 
 @app.route("/refresh", methods=["POST"])
 def manual_refresh():
